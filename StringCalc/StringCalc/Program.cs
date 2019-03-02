@@ -21,6 +21,26 @@ namespace StringCalc
         static int Add(string numbers)
         {
             int retval = 0;
+            if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
+          
+            string[] numbersList = Regex.Split(numbers, @"\D+");
+            if (numbers.Length > 0)
+            {
+                foreach (string x in numbersList)
+                {
+                    if (x != "")
+                    {
+                        retval += Int32.Parse(x);
+                    }
+                }
+            }
+            return retval;
+        }
+
+        //Step 2
+        static int Step2Add(string numbers)
+        {
+            int retval = 0;
             string[] numbersList = Regex.Split(numbers, @"\D+");
             if (numbers.Length > 0)
             {
