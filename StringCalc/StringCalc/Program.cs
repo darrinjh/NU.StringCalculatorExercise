@@ -11,14 +11,59 @@ namespace StringCalc
     {
         static void Main(string[] args)
         {
-            if (args.Length == 0) Console.WriteLine("0");
-            else
+            try
             {
-                int val = Add(args[0]);
-                Console.WriteLine(val);
+                if (args.Length == 0) Console.WriteLine("0");
+                else
+                {
+                    int val = Add(args[0]);
+                    Console.WriteLine(val);
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
+
         }
         static int Add(string numbers)
+        {
+            int retval = 0;
+            if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
+
+            string[] numbersList = findNumbers(numbers);
+            //Check for negative numbers
+            negativeCheck(numbersList);
+
+            if (numbers.Length > 0)
+            {
+                foreach (string x in numbersList)
+                {
+                    if (x != "")
+                    {
+                        try
+                        {
+                            retval += Int32.Parse(x);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+            }
+            return retval;
+        }
+        static void negativeCheck(string[] numbers)
+        {
+            string negs = "";
+            foreach (string x in numbers)
+            {
+               int v = Int32.Parse(x);
+               if( v < 0) negs += x +" ";
+            }
+            if(negs.Length > 0) throw new System.ArgumentException("negatives not allowed " + negs);
+        }
+        //Step 4
+        static int Step4Add(string numbers)
         {
             int retval = 0;
             if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
