@@ -9,6 +9,8 @@ namespace StringCalc
 {
     class Program
     {
+        List<string> numberList = new List<string>();
+        
         static void Main(string[] args)
         {
             try
@@ -45,6 +47,36 @@ namespace StringCalc
                         {
                             int v = Int32.Parse(x);
                             if(v <= 1000) retval += v;
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+            }
+            return retval;
+        }
+
+        //Step 7
+        static int Step7Add(string numbers)
+        {
+            int retval = 0;
+            if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
+
+            string[] numbersList = findNumbers(numbers);
+            //Check for negative numbers
+            negativeCheck(numbersList);
+
+            if (numbers.Length > 0)
+            {
+                foreach (string x in numbersList)
+                {
+                    if (x != "")
+                    {
+                        try
+                        {
+                            int v = Int32.Parse(x);
+                            if (v <= 1000) retval += v;
                         }
                         catch (Exception ex)
                         {
@@ -152,7 +184,7 @@ namespace StringCalc
         static string[] findNumbers(string t)
         {
             string delim =",";
-            string[] retval1 = Regex.Split(t, @"\D+"); ;
+            string[] retval1 = Regex.Split(t, @"\D+"); 
 
             int i = t.IndexOf("\\n");
 
@@ -160,8 +192,24 @@ namespace StringCalc
             {
                 if (t.Substring(0, 2) == "//" && t.Substring(i, 2) == "\\n")
                 {
-                    delim = t.Substring(2, i-2);
-                    retval1 = t.Substring(i+2).Split(new string[] { delim }, StringSplitOptions.None);
+                    if (t.Contains("[") && t.Contains("]")) //multi delimiter
+                    {
+                        string ss = Regex.Match(t, @"\[(.*?%)\]").ToString();
+                        ss = ss.Replace("[", "");
+                        string[] delims = ss.Split(']');
+                        delims = delims.Take(delims.Count() - 1).ToArray();
+                        string g = t.Substring(i + 2, t.Length-i-2);
+
+                        foreach (string c in delims) 
+                        {
+                            g = g.Replace(c, "~"); // make the delimiters the same one!
+                        }
+                        retval1 = g.Split('~');
+                    } else
+                    {
+                        delim = t.Substring(2, i - 2);
+                        retval1 = t.Substring(i + 2).Split(new string[] { delim }, StringSplitOptions.None);
+                    }
                 }
             }
             return retval1;
