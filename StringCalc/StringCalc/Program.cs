@@ -55,6 +55,36 @@ namespace StringCalc
             return retval;
         }
 
+        //Step 6
+        static int Step6Add(string numbers)
+        {
+            int retval = 0;
+            if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
+
+            string[] numbersList = findNumbers(numbers);
+            //Check for negative numbers
+            negativeCheck(numbersList);
+
+            if (numbers.Length > 0)
+            {
+                foreach (string x in numbersList)
+                {
+                    if (x != "")
+                    {
+                        try
+                        {
+                            int v = Int32.Parse(x);
+                            if (v <= 1000) retval += v;
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+            }
+            return retval;
+        }
+
         //Step 5
         static int Step5Add(string numbers)
         {
@@ -121,15 +151,17 @@ namespace StringCalc
 
         static string[] findNumbers(string t)
         {
-            char delim =',';
+            string delim =",";
             string[] retval1 = Regex.Split(t, @"\D+"); ;
 
-            if (t.Length > 5)
+            int i = t.IndexOf("\\n");
+
+            if (t.Length > i)
             {
-                if (t.Substring(0, 2) == "//" && t.Substring(3, 2) == "\\n")
+                if (t.Substring(0, 2) == "//" && t.Substring(i, 2) == "\\n")
                 {
-                    delim = t.Substring(2, 1)[0];
-                    retval1 = t.Substring(5).Split(delim);
+                    delim = t.Substring(2, i-2);
+                    retval1 = t.Substring(i+2).Split(new string[] { delim }, StringSplitOptions.None);
                 }
             }
             return retval1;
