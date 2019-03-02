@@ -1,0 +1,6 @@
+D:\NewcastleUni\StringCalc\StringCalc\bin\Debug\StringCalc.exe.config
+D:\NewcastleUni\StringCalc\StringCalc\bin\Debug\StringCalc.exe
+D:\NewcastleUni\StringCalc\StringCalc\bin\Debug\StringCalc.pdb
+D:\NewcastleUni\StringCalc\StringCalc\obj\Debug\StringCalc.csproj.CoreCompileInputs.cache
+D:\NewcastleUni\StringCalc\StringCalc\obj\Debug\StringCalc.exe
+D:\NewcastleUni\StringCalc\StringCalc\obj\Debug\StringCalc.pdb

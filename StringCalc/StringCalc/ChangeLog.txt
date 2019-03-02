@@ -1,0 +1,8 @@
+﻿StringCalculator
+
+
+Version  Change 
+1.0.0.0  Initalise project																																	Developer
+			•	The method can take 0, 1 or 2 numbers, and will return their sum (for an empty string it will return 0) for example “” or “1” or “1,2”		DJH - 02 March 2019
+			•	Start with the simplest test case of an empty string and move to one and two numbers
+
