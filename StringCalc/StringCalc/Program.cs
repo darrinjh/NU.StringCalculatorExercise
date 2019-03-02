@@ -25,7 +25,38 @@ namespace StringCalc
             }
 
         }
+
         static int Add(string numbers)
+        {
+            int retval = 0;
+            if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
+
+            string[] numbersList = findNumbers(numbers);
+            //Check for negative numbers
+            negativeCheck(numbersList);
+
+            if (numbers.Length > 0)
+            {
+                foreach (string x in numbersList)
+                {
+                    if (x != "")
+                    {
+                        try
+                        {
+                            int v = Int32.Parse(x);
+                            if(v <= 1000) retval += v;
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                }
+            }
+            return retval;
+        }
+
+        //Step 5
+        static int Step5Add(string numbers)
         {
             int retval = 0;
             if (numbers.Contains(",\\n")) return retval; // not sure if you wanted a full carrage return so I went with what it said.
@@ -62,6 +93,7 @@ namespace StringCalc
             }
             if(negs.Length > 0) throw new System.ArgumentException("negatives not allowed " + negs);
         }
+  
         //Step 4
         static int Step4Add(string numbers)
         {
